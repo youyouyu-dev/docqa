@@ -1,0 +1,42 @@
+{
+  "1": {
+    "words": ["functional", "implementation", "harness", "perception", "closed loop"],
+    "blocks": [8, 9]
+  },
+  "2": {
+    "words": ["prompt engineering", "workflow", "context engineering", "harness engineering", "agent-native training"],
+    "blocks": [3, 6, 17, 18, 19, 20, 44]
+  },
+  "3": {
+    "words": ["observation", "context", "control", "action", "state", "verification"],
+    "blocks": [21, 22, 23, 24, 25, 26, 27]
+  },
+  "4": {
+    "words": ["select", "compress", "order", "refresh", "context"],
+    "blocks": [23]
+  },
+  "5": {
+    "words": ["action", "tool", "permission", "schema", "mcp"],
+    "blocks": [25]
+  },
+  "6": {
+    "words": ["scaffold", "backbone", "harness"],
+    "blocks": [36]
+  },
+  "7": {
+    "words": ["generalization", "specialization", "substrate", "adapter"],
+    "blocks": [43]
+  },
+  "8": {
+    "words": ["scaling", "boundary", "cost", "benchmark"],
+    "blocks": [13, 14, 15]
+  },
+  "9": {
+    "words": ["observation", "action", "interface", "permission"],
+    "blocks": [22, 25]
+  },
+  "10": {
+    "words": ["select", "compress", "order", "refresh", "context"],
+    "blocks": [23]
+  }
+}
