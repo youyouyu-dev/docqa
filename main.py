@@ -136,7 +136,10 @@ def pick(sd, gap=1.5, min_k=2, max_k=6, skip_first=False):
     return max(k, min_k)
 
 def main():
-    qwords = input("用户：")
+    qwords = input("用户：").strip()
+    if not qwords:
+        print("没输入问题")
+        return
     if has_chinese(qwords):
         qwords = translate(qwords)
         print(f"（翻译成英文去查：{qwords}）")
