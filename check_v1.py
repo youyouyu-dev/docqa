@@ -47,34 +47,31 @@ def hit_rate(answer, keys):
             ok += 1
     return ok / len(keys)
 
-for n, q in enumerate(qs, start=1):
-    if main.has_chinese(q):
-        q = main.translate(q)
-        print(f"第 {n} 题（中文）译成：{q}")
-    sd = [(main.score(q, c, N, df), c) for c in chunks]
-    sd.sort(key=lambda x: x[0], reverse=True)
-    k = main.pick(sd, skip_first=True)
-    pr = [x[1] for x in sd[:k]]
-    nprs = ""
-    for npr in pr:
-        nprs += f"[{npr['number']}] {npr['chapter']} {npr['section']} {npr['text']} \n \n \n"
+if __name__ == "__main__":
+    for n, q in enumerate(qs, start=1):
+        if main.has_chinese(q):
+            q = main.translate(q)
+            print(f"第 {n} 题（中文）译成：{q}")
+        sd = [(main.score(q, c, N, df), c) for c in chunks]
+        sd.sort(key=lambda x: x[0], reverse=True)
+        k = main.pick(sd, skip_first=True)
+        pr = [x[1] for x in sd[:k]]
+        nprs = ""
+        for npr in pr:
+            nprs += f"[{npr['number']}] {npr['chapter']} {npr['section']} {npr['text']} \n \n \n"
 
-    answer = main.chat(q + nprs)
-    if answer is None:
-        print(False)
-        print("（接口没返回，这题跳过）")
-        continue
-    refs = [int(x[1:-1]) for x in re.findall(r"\[\d+\]", answer)]
-    num = any(b in data[f"{n}"]["blocks"] for b in refs)
+        answer = main.chat(q + nprs)
+        if answer is None:
+            print(False)
+            print("（接口没返回，这题跳过）")
+            continue
+        refs = [int(x[1:-1]) for x in re.findall(r"\[\d+\]", answer)]
+        num = any(b in data[f"{n}"]["blocks"] for b in refs)
 
-    
-    hit = hit_rate(answer, data[f"{n}"]["words"])
-    if hit >= 0.6 and num:
-        print(True)
-    else:
-        print(False)
-    print(answer)
-    print(hit, refs, data[f"{n}"]["blocks"])
-
-
-
+        hit = hit_rate(answer, data[f"{n}"]["words"])
+        if hit >= 0.6 and num:
+            print(True)
+        else:
+            print(False)
+        print(answer)
+        print(hit, refs, data[f"{n}"]["blocks"])
