@@ -80,7 +80,7 @@ def chat(content):
             base,
             headers={"Authorization": f"Bearer {key}"},
             json={"model": "deepseek-chat",
-                "messages": [{"role": "system", "content": "只根据资料回答，每句后面要标注依据哪一块，格式是[数字]，数字就是块开头那个号；用和问题相同的语言回答。资料里没有找到答案的，就直接说「资料里没有找到」，不要用资料以外的知识补充。只能引用上面给出的块，不要编造块号。"},
+                "messages": [{"role": "system", "content": "只根据资料回答，每句后面要标注依据哪一块，格式是[数字]，数字就是块开头那个号；用用户提问时的语言回答。资料里没有找到答案的，就直接说「资料里没有找到」，不要用资料以外的知识补充。只能引用上面给出的块，不要编造块号。"},
                             {"role": "user", "content": content},
                             ],
                 "temperature": 0
@@ -140,9 +140,11 @@ def main():
     if not qwords:
         print("没输入问题")
         return
+    ask = qwords
     if has_chinese(qwords):
         qwords = translate(qwords)
         print(f"（翻译成英文去查：{qwords}）")
+        ask = f"用户原话：{ask}\n检索用英文：{qwords}"
     chunks = get(text)
 
     df = {}
@@ -183,7 +185,7 @@ def main():
         tx = npr["text"]
         nprs += (f"[{nb}] {cp} {st} {tx} \n \n \n")
 
-    print(chat(qwords + nprs))
+    print(chat(ask + nprs))
 
 if __name__ == "__main__":
     main()
